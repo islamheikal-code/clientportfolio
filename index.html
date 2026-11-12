@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Specialist & Enterprise Developer Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: JetBrains Mono & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#0a0d14',
+                            card: '#111622',
+                            border: '#1e293b',
+                            accent: '#00f0ff',
+                            neonGreen: '#00ff66',
+                            purple: '#7000ff',
+                            textMuted: '#94a3b8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Glowing & Cyber Animations */
+        .glow-cyan {
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+        }
+        .glow-cyan-lg {
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.4);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+        }
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0d14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+    </style>
+</head>
+<body class="bg-cyber-bg text-slate-100 font-sans antialiased selection:bg-cyber-accent selection:text-black min-h-screen relative overflow-x-hidden">
+
+    <!-- Canvas Background Matrix/Particle Effect -->
+    <canvas id="cyberCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-20"></canvas>
+
+    <div class="relative z-10 flex flex-col min-h-screen">
+        <!-- Navigation Header -->
+        <header class="sticky top-0 z-50 backdrop-blur-md bg-cyber-bg/80 border-b border-cyber-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-lg bg-cyber-accent/10 border border-cyber-accent/40 flex items-center justify-center text-cyber-accent group-hover:scale-105 transition-transform">
+                        <i class="fa-solid font-mono text-xl fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <span class="font-mono text-lg font-bold text-white tracking-wider block leading-none">SEC<span class="text-cyber-accent">DEV</span></span>
+                        <span class="text-[10px] font-mono text-cyber-textMuted tracking-widest uppercase">Enterprise Security</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-mono">
+                    <a href="#about" class="text-slate-300 hover:text-cyber-accent transition-colors flex items-center gap-1.5"><span class="text-cyber-accent">01.</span> Profile</a>
+                    <a href="#specializations" class="text-slate-300 hover:text-cyber-accent transition-colors flex items-center gap-1.5"><span class="text-cyber-accent">02.</span> Core Capabilities</a>
+                    <a href="#architecture" class="text-slate-300 hover:text-cyber-accent transition-colors flex items-center gap-1.5"><span class="text-cyber-accent">03.</span> Security Architecture</a>
+                    <a href="#solutions" class="text-slate-300 hover:text-cyber-accent transition-colors flex items-center gap-1.5"><span class="text-cyber-accent">04.</span> Solutions</a>
+                    <a href="#terminal-section" class="text-slate-300 hover:text-cyber-accent transition-colors flex items-center gap-1.5"><span class="text-cyber-accent">05.</span> Console</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden sm:block">
+                    <a href="#contact" class="inline-flex items-center justify-center px-4 py-2 text-xs font-mono font-bold tracking-wider uppercase rounded-lg border border-cyber-accent text-cyber-accent hover:bg-cyber-accent hover:text-black transition-all glow-cyan duration-300">
+                        <i class="fa-solid fa-lock text-xs mr-2"></i> Request Consultation
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Toggle Button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-slate-300 hover:text-cyber-accent focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation Drawer -->
+            <div id="mobileMenu" class="hidden md:hidden bg-cyber-card border-b border-cyber-border px-4 py-6 space-y-4 font-mono text-sm">
+                <a href="#about" class="block text-slate-300 hover:text-cyber-accent transition-colors">01. Profile</a>
+                <a href="#specializations" class="block text-slate-300 hover:text-cyber-accent transition-colors">02. Core Capabilities</a>
+                <a href="#architecture" class="block text-slate-300 hover:text-cyber-accent transition-colors">03. Security Architecture</a>
+                <a href="#solutions" class="block text-slate-300 hover:text-cyber-accent transition-colors">04. Solutions</a>
+                <a href="#terminal-section" class="block text-slate-300 hover:text-cyber-accent transition-colors">05. Console</a>
+                <a href="#contact" class="block text-center py-2 border border-cyber-accent text-cyber-accent rounded font-bold uppercase">Request Consultation</a>
+            </div>
+        </header>
+
+        <!-- Main Content Container -->
+        <main class="flex-grow">
+            <!-- Hero / Profile Section -->
+            <section id="about" class="py-16 md:py-24 bg-grid-pattern relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid md:grid-cols-12 gap-12 items-center">
+                        <!-- Profile Text / Details -->
+                        <div class="md:col-span-7 space-y-6">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyber-accent/10 border border-cyber-accent/30 text-cyber-accent font-mono text-xs">
+                                <span class="w-2 h-2 rounded-full bg-cyber-neonGreen animate-pulse"></span>
+                                Available for High-Security Enterprise Projects
+                            </div>
+                            
+                            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                                Cybersecurity Student <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-accent via-cyan-300 to-cyber-purple text-glow"></span>
+                            </h1>
+
+                            <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                                I specialize in architecting and building custom, high-security enterprise solutions tailored specifically to high-stakes industries like construction, logistics, and multi-site operations. 
+                            </p>
+
+                            <p class="text-cyber-textMuted text-sm sm:text-base leading-relaxed">
+                                Multi-site operations require non-stop reliability and robust defense mechanisms to protect proprietary site data, progress reports, and critical worker workflows from cyber threats while ensuring seamless field communication.
+                            </p>
+
+                            <!-- Quick Specs / Badges -->
+                            <div class="pt-2 flex flex-wrap gap-2 text-xs font-mono">
+                                <span class="px-3 py-1.5 rounded-md bg-cyber-card border border-cyber-border text-slate-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-shield-cat text-cyber-accent"></i> Zero Trust Architecture
+                                </span>
+                                <span class="px-3 py-1.5 rounded-md bg-cyber-card border border-cyber-border text-slate-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-key text-cyber-accent"></i> RBAC Controls
+                                </span>
+                                <span class="px-3 py-1.5 rounded-md bg-cyber-card border border-cyber-border text-slate-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-lock text-cyber-accent"></i> E2E Encryption
+                                </span>
+                                <span class="px-3 py-1.5 rounded-md bg-cyber-card border border-cyber-border text-slate-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-bug text-cyber-accent"></i> Threat Scanning
+                                </span>
+                            </div>
+
+                            <!-- CTA Buttons -->
+                            <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                                <a href="#contact" class="px-6 py-3 rounded-lg bg-cyber-accent text-black font-bold font-mono text-sm uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-cyan-300 transition-all glow-cyan">
+                                    <i class="fa-solid fa-paper-plane"></i> Discuss Architecture
+                                </a>
+                                <a href="#solutions" class="px-6 py-3 rounded-lg bg-cyber-card border border-cyber-border text-white font-mono text-sm hover:border-cyber-accent transition-all flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-layer-group text-cyber-accent"></i> View Enterprise Solutions
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Profile Portrait Image Slot -->
+                        <div class="md:col-span-5 flex justify-center">
+                            <div class="relative group">
+                                <!-- Cyber Border Glow Frame -->
+                                <div class="absolute -inset-1 bg-gradient-to-r from-cyber-accent to-cyber-purple rounded-2xl blur opacity-30 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                                
+                                <div class="relative w-64 h-80 sm:w-72 sm:h-96 rounded-2xl bg-cyber-card border-2 border-cyber-accent/50 overflow-hidden flex flex-col items-center justify-center shadow-2xl">
+                                    <!-- User Avatar / Placeholder Image with Fallback -->
+                                    <img src="https://img.sanishtech.com/u/5794d4ebde41d7b41590534b0b6dcd6d.jpeg" 
+                                         alt="Cybersecurity Specialist Portrait" 
+                                         class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                         onerror="this.onerror=null; this.src='https://placehold.co/400x500/111622/00f0ff?text=Cybersecurity+Specialist';"
+                                    />
+
+                                    <!-- HUD Overlay elements -->
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                    <div class="absolute top-3 left-3 px-2 py-1 bg-black/60 backdrop-blur rounded text-[10px] font-mono text-cyber-accent border border-cyber-accent/30">
+                                        ID: SEC-8891-DEV
+                                    </div>
+                                    <div class="absolute bottom-3 left-3 right-3 p-3 bg-black/70 backdrop-blur rounded-lg border border-cyber-border">
+                                        <p class="font-mono text-xs font-bold text-white">Cybersecurity & Dev Specialist</p>
+                                        <p class="font-mono text-[11px] text-cyber-accent flex items-center gap-1 mt-0.5">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-cyber-accent animate-ping"></span> Status: Encrypted & Active
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Capabilities & Core Focus -->
+            <section id="specializations" class="py-20 bg-cyber-bg border-t border-cyber-border">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                        <h2 class="text-xs font-mono text-cyber-accent uppercase tracking-widest">Architectural Pillars</h2>
+                        <h3 class="text-3xl font-bold text-white tracking-tight">Enterprise Infrastructure & Protection</h3>
+                        <p class="text-cyber-textMuted text-sm">Designed specifically for operations requiring non-stop uptime, data security, and real-time field tracking.</p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Pillar 1 -->
+                        <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 hover:border-cyber-accent/60 transition-all group duration-300">
+                            <div class="w-12 h-12 rounded-lg bg-cyber-accent/10 border border-cyber-accent/30 flex items-center justify-center text-cyber-accent mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-diagram-project text-xl"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2">Centralized Worksite & Workflow</h4>
+                            <p class="text-cyber-textMuted text-xs leading-relaxed">
+                                Real-time tracking of jobs, equipment, schedules, and personnel across all active multi-site construction and industrial environments.
+                            </p>
+                        </div>
+
+                        <!-- Pillar 2 -->
+                        <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 hover:border-cyber-accent/60 transition-all group duration-300">
+                            <div class="w-12 h-12 rounded-lg bg-cyber-accent/10 border border-cyber-accent/30 flex items-center justify-center text-cyber-accent mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-chart-line text-xl"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2">Progress Analytics & Reporting</h4>
+                            <p class="text-cyber-textMuted text-xs leading-relaxed">
+                                Automated executive dashboards for timeline tracking, budget status monitoring, and real-time task completion analytics.
+                            </p>
+                        </div>
+
+                        <!-- Pillar 3 -->
+                        <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 hover:border-cyber-accent/60 transition-all group duration-300">
+                            <div class="w-12 h-12 rounded-lg bg-cyber-accent/10 border border-cyber-accent/30 flex items-center justify-center text-cyber-accent mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-user-shield text-xl"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2">Built-in Cyber Architecture</h4>
+                            <p class="text-cyber-textMuted text-xs leading-relaxed">
+                                End-to-end data encryption, granular Role-Based Access Control (RBAC), and automated routine vulnerability scanning.
+                            </p>
+                        </div>
+
+                        <!-- Pillar 4 -->
+                        <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 hover:border-cyber-accent/60 transition-all group duration-300">
+                            <div class="w-12 h-12 rounded-lg bg-cyber-accent/10 border border-cyber-accent/30 flex items-center justify-center text-cyber-accent mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-mobile-screen-button text-xl"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2">Mobile Field Optimization</h4>
+                            <p class="text-cyber-textMuted text-xs leading-relaxed">
+                                Ultra-fast, responsive UI tailored for seamless operation by site managers, engineers, and field crew members on any device.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cybersecurity Architecture Deep Dive -->
+            <section id="architecture" class="py-20 bg-cyber-card/40 border-t border-cyber-border">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid lg:grid-cols-12 gap-12 items-center">
+                        <!-- Content -->
+                        <div class="lg:col-span-6 space-y-6">
+                            <h2 class="text-xs font-mono text-cyber-accent uppercase tracking-widest">Defense-in-Depth</h2>
+                            <h3 class="text-3xl font-bold text-white">Built-in Cyber Defense Architecture</h3>
+                            <p class="text-cyber-textMuted text-sm leading-relaxed">
+                                Security is not an afterthought or an external plugin—it is baked directly into the software architecture at every layer.
+                            </p>
+
+                            <div class="space-y-4 pt-2">
+                                <div class="p-4 rounded-lg bg-cyber-card border border-cyber-border flex items-start gap-4">
+                                    <div class="p-2 rounded bg-cyber-accent/10 text-cyber-accent font-mono text-sm">01</div>
+                                    <div>
+                                        <h4 class="font-mono text-sm font-bold text-white">End-to-End Encryption (E2EE)</h4>
+                                        <p class="text-xs text-cyber-textMuted mt-1">Protects proprietary worksite blueprints, budget reports, and operational logs both at rest and in transit (AES-256 / TLS 1.3).</p>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 rounded-lg bg-cyber-card border border-cyber-border flex items-start gap-4">
+                                    <div class="p-2 rounded bg-cyber-accent/10 text-cyber-accent font-mono text-sm">02</div>
+                                    <div>
+                                        <h4 class="font-mono text-sm font-bold text-white">Granular Role-Based Access Control (RBAC)</h4>
+                                        <p class="text-xs text-cyber-textMuted mt-1">Ensures crew members, site managers, and executives only access the data relevant to their specific role and site context.</p>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 rounded-lg bg-cyber-card border border-cyber-border flex items-start gap-4">
+                                    <div class="p-2 rounded bg-cyber-accent/10 text-cyber-accent font-mono text-sm">03</div>
+                                    <div>
+                                        <h4 class="font-mono text-sm font-bold text-white">Automated Vulnerability Scanning</h4>
+                                        <p class="text-xs text-cyber-textMuted mt-1">Continuous threat monitoring and dependency audits to detect zero-day vulnerabilities and maintain non-stop operational compliance.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Architecture Visualizer Card -->
+                        <div class="lg:col-span-6">
+                            <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 relative overflow-hidden font-mono">
+                                <div class="flex items-center justify-between border-b border-cyber-border pb-4 mb-6">
+                                    <span class="text-xs text-cyber-accent flex items-center gap-2">
+                                        <i class="fa-solid fa-shield-halved"></i> SECURITY MATRIX VISUALIZER
+                                    </span>
+                                    <span class="text-[10px] text-cyber-textMuted">SYSTEM ACTIVE</span>
+                                </div>
+
+                                <!-- Security Node Diagram -->
+                                <div class="space-y-6 text-xs">
+                                    <!-- Node Layer 1 -->
+                                    <div class="p-3 border border-dashed border-cyber-accent/40 rounded-lg bg-cyber-accent/5 flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-solid fa-mobile-button text-cyber-accent"></i>
+                                            <span>Field App (Site Crew)</span>
+                                        </div>
+                                        <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">TLS 1.3 / Auth Token</span>
+                                    </div>
+
+                                    <div class="text-center text-cyber-accent text-sm">
+                                        <i class="fa-solid fa-arrow-down-long animate-bounce"></i>
+                                    </div>
+
+                                    <!-- Node Layer 2 -->
+                                    <div class="p-3 border border-cyber-border rounded-lg bg-cyber-bg flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-solid fa-key text-yellow-400"></i>
+                                            <span>RBAC Enforcement Gateway</span>
+                                        </div>
+                                        <span class="text-[10px] px-2 py-0.5 rounded bg-yellow-400/10 text-yellow-300">Policy Validation</span>
+                                    </div>
+
+                                    <div class="text-center text-cyber-accent text-sm">
+                                        <i class="fa-solid fa-arrow-down-long animate-bounce"></i>
+                                    </div>
+
+                                    <!-- Node Layer 3 -->
+                                    <div class="p-3 border border-purple-500/40 rounded-lg bg-purple-500/5 flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-solid fa-database text-purple-400"></i>
+                                            <span>AES-256 Encrypted Storage</span>
+                                        </div>
+                                        <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300">Zero-Knowledge</span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-6 pt-4 border-t border-cyber-border flex justify-between items-center text-[10px] text-cyber-textMuted">
+                                    <span>Vulnerability Monitor: Active</span>
+                                    <span class="text-cyber-neonGreen">0 Vulnerabilities Found</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Solutions Section -->
+            <section id="solutions" class="py-20 bg-cyber-bg border-t border-cyber-border">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                        <div>
+                            <h2 class="text-xs font-mono text-cyber-accent uppercase tracking-widest">Solutions Showcase</h2>
+                            <h3 class="text-3xl font-bold text-white tracking-tight mt-1">High-Stakes Enterprise Platforms</h3>
+                        </div>
+                        <p class="text-cyber-textMuted text-xs font-mono mt-2 md:mt-0">Custom Built • Highly Secure • Scalable</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Solution Card 1 -->
+                        <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-accent transition-all flex flex-col group">
+                            <div class="h-48 bg-slate-800 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&q=80&w=600" 
+                                     alt="Construction Worksite Management Platform" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/111622/00f0ff?text=Worksite+Platform';"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-cyber-card via-transparent to-transparent"></div>
+                                <span class="absolute top-3 right-3 px-2 py-1 rounded bg-black/70 text-cyber-accent font-mono text-[10px] border border-cyber-accent/40">Construction Tech</span>
+                            </div>
+                            <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                                <div>
+                                    <h4 class="text-xl font-bold text-white group-hover:text-cyber-accent transition-colors">Multi-Site Operations Manager</h4>
+                                    <p class="text-cyber-textMuted text-xs leading-relaxed mt-2">
+                                        Centralized real-time tracking for active construction sites. Features live job status, crew equipment allocation, and localized scheduling.
+                                    </p>
+                                </div>
+                                <div class="pt-4 border-t border-cyber-border/60 flex flex-wrap gap-2 text-[11px] font-mono text-cyber-accent">
+                                    <span>#RBAC</span> <span>#RealTimeTracking</span> <span>#MobileReady</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Solution Card 2 -->
+                        <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-accent transition-all flex flex-col group">
+                            <div class="h-48 bg-slate-800 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600" 
+                                     alt="Executive Analytics & Progress Reporting" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/111622/00f0ff?text=Analytics+Dashboard';"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-cyber-card via-transparent to-transparent"></div>
+                                <span class="absolute top-3 right-3 px-2 py-1 rounded bg-black/70 text-cyber-accent font-mono text-[10px] border border-cyber-accent/40">Analytics</span>
+                            </div>
+                            <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                                <div>
+                                    <h4 class="text-xl font-bold text-white group-hover:text-cyber-accent transition-colors">Executive Progress & Analytics Dashboard</h4>
+                                    <p class="text-cyber-textMuted text-xs leading-relaxed mt-2">
+                                        Automated dashboard enabling managers to monitor timeline updates, budget status, worker task completion, and resource optimization.
+                                    </p>
+                                </div>
+                                <div class="pt-4 border-t border-cyber-border/60 flex flex-wrap gap-2 text-[11px] font-mono text-cyber-accent">
+                                    <span>#AutomatedReports</span> <span>#BudgetTracking</span> <span>#E2EE</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Solution Card 3 -->
+                        <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-accent transition-all flex flex-col group">
+                            <div class="h-48 bg-slate-800 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=600" 
+                                     alt="Secure Field Communication Interface" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/111622/00f0ff?text=Field+App';"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-cyber-card via-transparent to-transparent"></div>
+                                <span class="absolute top-3 right-3 px-2 py-1 rounded bg-black/70 text-cyber-accent font-mono text-[10px] border border-cyber-accent/40">Cyber Security</span>
+                            </div>
+                            <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                                <div>
+                                    <h4 class="text-xl font-bold text-white group-hover:text-cyber-accent transition-colors">Hardened Field Mobility UI</h4>
+                                    <p class="text-cyber-textMuted text-xs leading-relaxed mt-2">
+                                        Fast, responsive interface engineered for field operations by site managers and crew members with zero compromise on data security.
+                                    </p>
+                                </div>
+                                <div class="pt-4 border-t border-cyber-border/60 flex flex-wrap gap-2 text-[11px] font-mono text-cyber-accent">
+                                    <span>#VulnerabilityScan</span> <span>#OfflineCapable</span> <span>#LowLatency</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Cyber Terminal Diagnostic Simulator -->
+            <section id="terminal-section" class="py-20 bg-cyber-card/30 border-t border-cyber-border">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-8">
+                        <h2 class="text-xs font-mono text-cyber-accent uppercase tracking-widest">Interactive Console</h2>
+                        <h3 class="text-2xl font-bold text-white mt-1">Live Security Diagnostic Simulator</h3>
+                        <p class="text-xs text-cyber-textMuted mt-1 font-mono">Run commands below to audit system security, check RBAC compliance, or scan vulnerabilities.</p>
+                    </div>
+
+                    <!-- Terminal Box -->
+                    <div class="bg-black/90 border border-cyber-border rounded-xl shadow-2xl overflow-hidden font-mono text-xs text-slate-300">
+                        <!-- Terminal Header Bar -->
+                        <div class="bg-cyber-card px-4 py-3 border-b border-cyber-border flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                                <span class="text-slate-400 text-[11px] ml-2">secdev-cli v2.4.0 — bash</span>
+                            </div>
+                            <div class="text-[10px] text-cyber-accent">SECURE SESSION</div>
+                        </div>
+
+                        <!-- Terminal Output Window -->
+                        <div id="terminalOutput" class="p-6 h-64 overflow-y-auto space-y-2 font-mono">
+                            <p class="text-slate-500">// Interactive Cybersecurity Diagnostic Terminal</p>
+                            <p class="text-slate-500">// Type <span class="text-cyber-accent">'help'</span> for a list of available security commands.</p>
+                            <p class="text-cyber-neonGreen">[SYSTEM OK] Initialized defense parameters. Encryption key exchange active.</p>
+                        </div>
+
+                        <!-- Terminal Input Bar -->
+                        <div class="px-6 py-3 border-t border-cyber-border/60 bg-cyber-bg/50 flex items-center gap-2">
+                            <span class="text-cyber-accent">$</span>
+                            <input type="text" id="terminalInput" 
+                                   class="bg-transparent text-white focus:outline-none w-full font-mono text-xs placeholder:text-slate-600"
+                                   placeholder="Type command here (e.g., 'scan', 'rbac', 'help')..." 
+                                   autocomplete="off" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact & Consultation Request Form -->
+            <section id="contact" class="py-20 bg-cyber-bg border-t border-cyber-border relative">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-cyber-card border border-cyber-border rounded-2xl p-8 sm:p-12 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-8 opacity-10 pointer-events-none text-cyber-accent">
+                            <i class="fa-solid fa-shield-halved text-9xl"></i>
+                        </div>
+
+                        <div class="max-w-2xl space-y-4">
+                            <h2 class="text-xs font-mono text-cyber-accent uppercase tracking-widest">Initiate Engagement</h2>
+                            <h3 class="text-3xl font-bold text-white">Outline Your Technical Requirements</h3>
+                            <p class="text-cyber-textMuted text-sm">
+                                I welcome the opportunity to discuss your technical requirements and outline an architecture plan for your custom enterprise platform.
+                            </p>
+                        </div>
+
+                        <!-- Contact Form -->
+                        <form id="consultationForm" onsubmit="handleFormSubmit(event)" class="mt-8 space-y-6">
+                            <div class="grid sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs font-mono text-slate-300 uppercase mb-2">Your Name / Company</label>
+                                    <input type="text" required placeholder="e.g. Construction Ops Inc." class="w-full px-4 py-3 rounded-lg bg-cyber-bg border border-cyber-border text-white text-sm focus:outline-none focus:border-cyber-accent font-mono transition-colors">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-mono text-slate-300 uppercase mb-2">Corporate Email</label>
+                                    <input type="email" required placeholder="name@company.com" class="w-full px-4 py-3 rounded-lg bg-cyber-bg border border-cyber-border text-white text-sm focus:outline-none focus:border-cyber-accent font-mono transition-colors">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-mono text-slate-300 uppercase mb-2">Industry Sector</label>
+                                <select class="w-full px-4 py-3 rounded-lg bg-cyber-bg border border-cyber-border text-white text-sm focus:outline-none focus:border-cyber-accent font-mono transition-colors">
+                                    <option value="construction">Construction & Multi-site Infrastructure</option>
+                                    <option value="logistics">Logistics & Supply Chain</option>
+                                    <option value="enterprise">Enterprise Software Solutions</option>
+                                    <option value="security">Security Audit & Compliance</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-mono text-slate-300 uppercase mb-2">Project Details & Security Needs</label>
+                                <textarea rows="4" required placeholder="Describe your operational scope, site tracking needs, or security architecture requirements..." class="w-full px-4 py-3 rounded-lg bg-cyber-bg border border-cyber-border text-white text-sm focus:outline-none focus:border-cyber-accent font-mono transition-colors"></textarea>
+                            </div>
+
+                            <!-- Notification Message Box (In place of alert) -->
+                            <div id="formNotification" class="hidden p-4 rounded-lg font-mono text-xs"></div>
+
+                            <button type="submit" class="w-full sm:w-auto px-8 py-4 rounded-lg bg-cyber-accent text-black font-bold font-mono text-xs uppercase tracking-widest hover:bg-cyan-300 transition-all glow-cyan flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-lock text-sm"></i> Request Architecture Consultation
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-black py-8 border-t border-cyber-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-cyber-textMuted">
+                <div>
+                    © <span id="currentYear"></span> Cybersecurity Specialist & Enterprise Developer. All rights reserved.
+                </div>
+                <div class="flex items-center gap-6 text-slate-400">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-circle text-[8px] text-cyber-neonGreen"></i> All Systems Secured</span>
+                    <span>AES-256 Protected</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript Interactions & Animations -->
+    <script>
+        // Set dynamic year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Interactive Terminal Simulator Logic
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalOutput = document.getElementById('terminalOutput');
+
+        const commands = {
+            'help': 'Available commands: <span class="text-cyber-accent">scan</span>, <span class="text-cyber-accent">rbac</span>, <span class="text-cyber-accent">encryption</span>, <span class="text-cyber-accent">projects</span>, <span class="text-cyber-accent">clear</span>',
+            'scan': '<span class="text-yellow-400">[AUDIT]</span> Initiating vulnerability scan on enterprise nodes...<br><span class="text-cyber-neonGreen">[OK] Zero vulnerabilities detected across active worksite APIs.</span>',
+            'rbac': '<span class="text-cyber-accent">[RBAC STATUS]</span> Role-Based Access Control verified.<br>- Executive Dashboard: Full Access<br>- Site Manager: Operational Access<br>- Field Crew: Restricted Access',
+            'encryption': '<span class="text-purple-400">[CRYPTOGRAPHY]</span> End-to-End Encryption active.<br>Algorithms: AES-256-GCM, TLS 1.3 key exchange enabled.',
+            'projects': '<span class="text-cyber-accent">[SOLUTIONS]</span> Enterprise Modules loaded:<br>1. Centralized Worksite & Workflow Manager<br>2. Real-Time Progress & Budget Dashboard<br>3. Mobile Field Crew Hardened UI',
+            'clear': 'CLEAR'
+        };
+
+        terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value.trim().toLowerCase();
+                this.value = '';
+
+                if (!command) return;
+
+                if (command === 'clear') {
+                    terminalOutput.innerHTML = '<p class="text-slate-500">// Terminal output cleared.</p>';
+                    return;
+                }
+
+                // Append user command
+                const userLine = document.createElement('div');
+                userLine.className = 'text-white flex items-center gap-2 mt-2';
+                userLine.innerHTML = `<span class="text-cyber-accent">$</span> ${command}`;
+                terminalOutput.appendChild(userLine);
+
+                // Append response
+                const responseLine = document.createElement('div');
+                responseLine.className = 'mt-1 text-slate-300';
+                
+                if (commands[command]) {
+                    responseLine.innerHTML = commands[command];
+                } else {
+                    responseLine.innerHTML = `<span class="text-red-400">Command not recognized: '${command}'. Type 'help' for available commands.</span>`;
+                }
+
+                terminalOutput.appendChild(responseLine);
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
+        });
+
+        // Form Submit Handler (No alert())
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const notification = document.getElementById('formNotification');
+            
+            notification.className = "p-4 rounded-lg font-mono text-xs bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 block";
+            notification.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> Architecture Consultation Request Encrypted & Sent Successfully! I will reach out shortly.`;
+            
+            e.target.reset();
+
+            setTimeout(() => {
+                notification.className = "hidden";
+            }, 6000);
+        }
+
+        // Particle Grid Canvas Background Animation
+        const canvas = document.getElementById('cyberCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particles = [];
+        const particleCount = 45;
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 1.5 + 0.5,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4
+            });
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00f0ff';
+            ctx.strokeStyle = 'rgba(0, 240, 255, 0.08)';
+
+            particles.forEach((p, index) => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.onload = function() {
+            animateCanvas();
+        };
+    </script>
+</body>
+</html>
